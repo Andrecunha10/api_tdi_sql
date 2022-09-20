@@ -14,7 +14,7 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
-      shorDescription: {
+      shortDescription: {
         type: Sequelize.STRING
       },
       departament: {

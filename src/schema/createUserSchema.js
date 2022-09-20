@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         nickname: joi.string().min(3).max(13).required(),
         email: joi.string().email().required(),
         password:joi.string().min(4).max(24).required(),
-        departament: joi.string().min(3).max(3).required()
+        departament: joi.string().min(1).max(3).required()
     })
 
     const schemaResult = bodySchema.validate(body)
