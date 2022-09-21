@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Suggestions.init({
-    message: DataTypes.STRING
+    message: DataTypes.STRING(500)
   }, {
     sequelize,
     modelName: 'Suggestions',

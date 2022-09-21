@@ -14,7 +14,7 @@ module.exports = async ( { name, nickname, email, password, departament } ) => {
             throw new BusinessError('User email already exists', 202)
         };
 
-        const user = await db.Users.create({
+        const user = {
             name,
             nickname,
             email,
@@ -22,19 +22,17 @@ module.exports = async ( { name, nickname, email, password, departament } ) => {
             departament,
             type: 2,
             status: 'active'
-        });
+        };
 
-        const userResponse = {
-            id: user.dataValues.id,
-            name,
-            nickname,
-            email,
-            departament,
-            type: user.dataValues.type,
-            status: user.dataValues.status,
-          }
-          userResponse.token = token(userResponse.id, userResponse.email)
+        if (nickname === '' || !nickname){
+            const setNickname = name.split(' ')[0].slice(0,13)
+            user.nickname = setNickname
+        }
+
+        const userResponse = await db.Users.create(user);
+
+          userResponse.dataValues.token = token(userResponse.dataValues.id, email);
           
-          return userResponse
+          return userResponse;
 
 }

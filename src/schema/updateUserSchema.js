@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         nickname: joi.string().min(3).max(13),
         email: joi.string().email(),
         password:joi.string().min(4).max(24),
-        departament: joi.string().min(3).max(3)
+        departament: joi.string().min(1).max(3)
     })
 
     const schemaResult = bodySchema.validate(body)
