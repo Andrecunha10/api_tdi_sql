@@ -1,19 +1,16 @@
 const db = require('../../../dbConfig/db/models');
+const errorResponse = require('../../error/errorResponse')
 const createNewUser = require('../useCase/createUser');
 const findUserUC = require('../useCase/findUserById');
 const upDateUserUC = require('../useCase/updateUser');
 const deleteUserUC = require('../useCase/deleteUser');
-const loginUC = require('../useCase/login')
+const loginUC = require('../useCase/login');
 
 class UserController {
     static async getAll(req, res) {
-        res.send('UserController');
-    };
-
-    static async getAll(req, res) {
         try {
           const allUser = await db.Users.findAll();
-          //TO DO: Make a USECASE with .map that return USERS without password
+          //TO DO: Make a MAPPER that return USERS without password
           return res.status(200).send(allUser);
         } catch (error) {
           return res.status(500).send(error.message);
@@ -24,11 +21,12 @@ class UserController {
         const userId = req.params.id;
 
         try {
+            //TO DO: Make a MAPPER that return USER without password
             const user = await findUserUC(userId)
             res.status(200).send(user)
 
         } catch (error) {
-            return res.status(error.statusCode || 500).send(error.message)
+            errorResponse(error, res);
         }
     };
 
@@ -37,12 +35,13 @@ class UserController {
         const body = req.body;
 
         try {
+            //TO DO: Make a MAPPER that return USERs without password
             const newUser = await createNewUser(body);
 
             return res.status(201).send(newUser);
 
         } catch (error) {
-            return res.status(error.statusCode || 500).send(error.message);
+            errorResponse(error, res);
         };
     };
 
@@ -50,15 +49,15 @@ class UserController {
         const userId = req.params.id;
         const body = req.body;
         try {
+            //TO DO: Make a MAPPER that return USER without password
             const newUser = await upDateUserUC(userId, body)
-
             return res.status(200).send({
                 message: "User updated successfully!",
                 ...newUser
             });
 
         } catch (error) {
-            return res.status(error.statusCode || 500).send(error.message);
+            errorResponse(error, res);
         }
     };
 
@@ -70,7 +69,7 @@ class UserController {
                 message: 'User deleted successfully!'
             })
         } catch (error) {
-            return res.status(error.statusCode || 500).send(error.message)
+            errorResponse(error, res);
         }
     };
 
@@ -78,10 +77,11 @@ class UserController {
         const {email, password } = req.body;
 
         try{
+            //TO DO: Make a MAPPER that return USER without password
             const userLogin = await loginUC(email, password);
             return res.status(200).send(userLogin);
         }catch(error) {
-            return res.status(error.statusCode || 500).send(error.message);
+            errorResponse(error, res);
         }
     };
 }

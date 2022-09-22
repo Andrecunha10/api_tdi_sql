@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "04092006",
+    "password": null,
     "database": "toro_de_ideias_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
