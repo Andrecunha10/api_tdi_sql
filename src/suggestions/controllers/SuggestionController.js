@@ -1,7 +1,8 @@
 const db = require('../../../dbConfig/db/models');
 const errorResponse = require('../../error/errorResponse');
-const findByIdUC = require('../useCase/findSuggestionById');
+const findSuggestionByIdUC = require('../useCase/findSuggestionById');
 const createSuggestionUC = require('../useCase/createSuggestion');
+const deleteSuggestionUC = require('../useCase/deleteSuggestion');
 
 class SugestionController {
 
@@ -21,7 +22,7 @@ class SugestionController {
         const suggestionId = req.params.id;
 
         try {
-            const suggestion = await findByIdUC(suggestionId);
+            const suggestion = await findSuggestionByIdUC(suggestionId);
 
             res.status(200).send(suggestion);
 
@@ -37,6 +38,18 @@ class SugestionController {
             const newSuggestion = await createSuggestionUC(body);
 
             res.status(200).send(newSuggestion);
+        } catch (error) {
+            errorResponse(error, res)
+        }
+    }
+    static async deleteSuggestion (req, res) {
+        const suggestionId = req.params.id
+
+        console.log('suggestionID', suggestionId)
+
+        try {
+            await deleteSuggestionUC(suggestionId)
+            res.status(200).send("Suggestion deleted successfully!")
         } catch (error) {
             errorResponse(error, res)
         }

@@ -1,11 +1,12 @@
 const {Router} = require('express');
 const route = Router();
-const sugestionsController = require('./controllers/SuggestionController');
+const SugestionsController = require('./controllers/SuggestionController');
 const verifyParamsId = require('../schema/verifyParamsId');
 const createSuggestionSchema = require('../schema/createSuggestionSchema');
 
-route.get('/list', sugestionsController.getAll);
-route.get('/find/:id', verifyParamsId, sugestionsController.findById);
-route.post('/create', createSuggestionSchema ,sugestionsController.createSuggestion);
+route.get('/list', SugestionsController.getAll);
+route.get('/find/:id', verifyParamsId, SugestionsController.findById);
+route.post('/create', createSuggestionSchema, SugestionsController.createSuggestion);
+route.delete('/delete/:id', verifyParamsId, SugestionsController.deleteSuggestion);
 
 module.exports = route;
