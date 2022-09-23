@@ -8,23 +8,7 @@ class SugestionController {
     static async getAll (req, res) {
         try {
 
-            const allSuggestions = await db.Suggestions.findAll();
-
-            // const suggestionsMap = allSuggestions.map( item => {
-            //     const findUser = async () => {
-            //        return await db.Users.findOne({
-            //         where: {
-            //             id: item.dataValues.userId
-            //         }
-            //        })
-            //     }
-                
-            //     const userData = findUser()
-
-            //     console.log(userData)
-                
-            //     return item.dataValues.userData = userData
-            // })
+            const allSuggestions = await db.Suggestions.findAll({ include: db.Users});
 
             res.status(200).send(allSuggestions);
 
