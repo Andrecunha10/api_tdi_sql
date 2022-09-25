@@ -8,7 +8,7 @@ module.exports = async (userId) => {
         }
     });
     if(!user){
-        throw new BusinessError('User not Found', 404)
+        throw new BusinessError('User not Found!', 404)
     }
 
     return user

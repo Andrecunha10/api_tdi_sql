@@ -3,22 +3,24 @@ const errorResponse = require('../../error/errorResponse');
 const findSuggestionByIdUC = require('../useCase/findSuggestionById');
 const createSuggestionUC = require('../useCase/createSuggestion');
 const deleteSuggestionUC = require('../useCase/deleteSuggestion');
+const findSuggestionByUserIdUC = require('../useCase/findSuggestionsByUserId');
 
 class SugestionController {
 
-    static async getAll (req, res) {
-        try {
+    static async getAll(req, res) {
 
-            const allSuggestions = await db.Suggestions.findAll({ include: db.Users});
+        try {
+            const allSuggestions = await db.Suggestions.findAll({ include: db.Users });
 
             res.status(200).send(allSuggestions);
-
         } catch (error) {
             errorResponse(error, res);
         }
+
     };
 
-    static async findById (req, res) {
+    static async findById(req, res) {
+
         const suggestionId = req.params.id;
 
         try {
@@ -30,8 +32,8 @@ class SugestionController {
             errorResponse(error, res)
         }
     };
-    
-    static async createSuggestion (req, res) {
+
+    static async createSuggestion(req, res) {
         const body = req.body
 
         try {
@@ -41,17 +43,31 @@ class SugestionController {
         } catch (error) {
             errorResponse(error, res)
         }
-    }
-    static async deleteSuggestion (req, res) {
-        const suggestionId = req.params.id
+    };
 
-        console.log('suggestionID', suggestionId)
+    static async deleteSuggestion(req, res) {
+        const suggestionId = req.params.id;
 
         try {
             await deleteSuggestionUC(suggestionId)
-            res.status(200).send("Suggestion deleted successfully!")
+            res.status(200).send("Suggestion deleted successfully!");
         } catch (error) {
+            errorResponse(error, res);
+        }
+    };
+
+    static async findSuggestionsByUserID(req, res) {
+        const userId = req.params.id;
+
+        try {
+
+            const userSuggestions = await findSuggestionByUserIdUC(userId);
+            res.status(200).send(userSuggestions);
+
+        } catch (error) {
+
             errorResponse(error, res)
+
         }
     }
 }
