@@ -2,12 +2,12 @@ const db = require('../../../dbConfig/db/models');
 const findUserUC = require('./findUserById');
 const {BusinessError} = require('../../error/errorEntity');
 
-module.exports = async (userId) => {
-    const verifyUserExists = await findUserUC(userId);
+module.exports = async (userId, user) => {
+    const userData = await findUserUC(userId);
 
-    if(!verifyUserExists){
-        throw new BusinessError('User do not exists!', 400)
-    };
+    if (userData.dataValues.id !== user.userId && user.type !== 1){
+        throw new BusinessError("You don't hava authorization to delete this user.", 401)
+    }
 
     await db.Users.destroy({
         where: {

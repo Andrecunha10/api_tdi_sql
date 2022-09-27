@@ -47,9 +47,10 @@ class SugestionController {
 
     static async deleteSuggestion(req, res) {
         const suggestionId = req.params.id;
+        const user = req.user
 
         try {
-            await deleteSuggestionUC(suggestionId)
+            await deleteSuggestionUC(suggestionId, user)
             res.status(200).send("Suggestion deleted successfully!");
         } catch (error) {
             errorResponse(error, res);
@@ -74,8 +75,9 @@ class SugestionController {
     static async updateSuggestion ( req, res) {
         const suggestionId = req.params.id;
         const body = req.body;
+        const user = req.user
         try {
-            const updatedSuggestion = await updateSuggestionUC(suggestionId, body)
+            const updatedSuggestion = await updateSuggestionUC(suggestionId, body, user)
             return res.status(200).send(updatedSuggestion)
         } catch (error) {
             errorResponse(error, res);

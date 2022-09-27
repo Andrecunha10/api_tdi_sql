@@ -12,7 +12,7 @@ route.get('/list', UserController.getAll);
 route.get('/find/:id', authentication, verifyUserTypes, verifyParamsId, UserController.findUser);
 route.post('/create', createUserSchema, UserController.createUser);
 route.put('/update/:id', authentication, verifyParamsId, updateUserSchema, UserController.updateUser);
-route.delete('/delete/:id', authentication, verifyUserTypes, verifyParamsId, UserController.deleteUser);
+route.delete('/delete/:id', authentication, verifyParamsId, UserController.deleteUser);
 route.post('/login', loginSchema, UserController.login);
 
 module.exports = route;

@@ -48,9 +48,10 @@ class UserController {
     static async updateUser (req, res) {
         const userId = req.params.id;
         const body = req.body;
+        const user = req.user;
         try {
             //TO DO: Make a MAPPER that return USER without password
-            const newUser = await upDateUserUC(userId, body)
+            const newUser = await upDateUserUC(userId, body, user)
             return res.status(200).send({
                 message: "User updated successfully!",
                 ...newUser
@@ -62,9 +63,10 @@ class UserController {
     };
 
     static async deleteUser (req, res) {
-        const userId = req.params.id
+        const userId = req.params.id;
+        const user = req.user;
         try {
-            await deleteUserUC(userId)
+            await deleteUserUC(userId, user)
             return res.status(200).send({
                 message: 'User deleted successfully!'
             })
