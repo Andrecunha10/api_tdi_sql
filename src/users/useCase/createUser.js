@@ -2,7 +2,7 @@ const db = require('../../../dbConfig/db/models');
 const findUserByEmail = require('../useCase/findUserByEmail');
 const bcrypt = require("bcrypt");
 const {BusinessError} = require('../../error/errorEntity');
-const token = require('../../utils/token')
+const token = require('../../auth/token')
 
 module.exports = async ( { name, nickname, email, password, departament } ) => {
 
@@ -31,7 +31,7 @@ module.exports = async ( { name, nickname, email, password, departament } ) => {
 
         const userResponse = await db.Users.create(user);
 
-          userResponse.dataValues.token = token(userResponse.dataValues.id, email);
+          userResponse.dataValues.token = token(userResponse.dataValues.id, email, user.type);
           
           return userResponse;
 

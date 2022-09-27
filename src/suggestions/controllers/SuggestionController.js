@@ -4,14 +4,14 @@ const findSuggestionByIdUC = require('../useCase/findSuggestionById');
 const createSuggestionUC = require('../useCase/createSuggestion');
 const deleteSuggestionUC = require('../useCase/deleteSuggestion');
 const findSuggestionByUserIdUC = require('../useCase/findSuggestionsByUserId');
-
+const updateSuggestionUC = require('../useCase/updateSuggestion')
 class SugestionController {
 
     static async getAll(req, res) {
 
         try {
             const allSuggestions = await db.Suggestions.findAll({ include: db.Users });
-
+            //TO TO: Mapper with user data without password.
             res.status(200).send(allSuggestions);
         } catch (error) {
             errorResponse(error, res);
@@ -62,12 +62,23 @@ class SugestionController {
         try {
 
             const userSuggestions = await findSuggestionByUserIdUC(userId);
-            res.status(200).send(userSuggestions);
+            return res.status(200).send(userSuggestions);
 
         } catch (error) {
 
             errorResponse(error, res)
 
+        }
+    }
+
+    static async updateSuggestion ( req, res) {
+        const suggestionId = req.params.id;
+        const body = req.body;
+        try {
+            const updatedSuggestion = await updateSuggestionUC(suggestionId, body)
+            return res.status(200).send(updatedSuggestion)
+        } catch (error) {
+            errorResponse(error, res);
         }
     }
 }
