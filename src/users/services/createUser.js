@@ -2,9 +2,8 @@ const db = require('../../../dbConfig/db/models');
 const findUserByEmail = require('../services/findUserByEmail');
 const bcrypt = require("bcrypt");
 const {BusinessError} = require('../../error/errorEntity');
-const token = require('../../auth/token')
 
-module.exports = async ( { name, nickname, email, password, departament } ) => {
+module.exports = async ( { name, nickname, email, password, departament, type } ) => {
 
         const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -20,7 +19,7 @@ module.exports = async ( { name, nickname, email, password, departament } ) => {
             email,
             password: encryptedPassword,
             departament,
-            type: 2,
+            type: type || 2,
             status: 'active'
         };
 
@@ -30,8 +29,6 @@ module.exports = async ( { name, nickname, email, password, departament } ) => {
         }
 
         const userResponse = await db.Users.create(user);
-
-          userResponse.dataValues.token = token(userResponse.dataValues.id, email, user.type);
           
           return userResponse;
 

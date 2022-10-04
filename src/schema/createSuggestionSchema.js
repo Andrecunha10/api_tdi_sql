@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
     const bodySchema = joi.object({
         message: joi.string().max(225).required(),
         problemId: joi.number().required(),
-        userId: joi.number().required()
     })
 
     const schemaResult = bodySchema.validate(body)

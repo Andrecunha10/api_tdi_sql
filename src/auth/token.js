@@ -8,9 +8,6 @@ module.exports = (userId, email, type) => {
         type
         },
         process.env.TOKEN_KEY,
-        {
-        expiresIn: "2h",
-        }
     );
     return token
 } 

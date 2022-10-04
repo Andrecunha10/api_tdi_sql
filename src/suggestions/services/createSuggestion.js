@@ -1,9 +1,10 @@
 const db = require('../../../dbConfig/db/models');
-const {BusinessError} = require('../../error/errorEntity');
 const findUserByID = require('../../users/services/findUserById');
-const findProblemByID = require('../../problems/services/findProblemsById')
+const findProblemByID = require('../../problems/services/findProblemsById');
+const findSuggestionById = require('./findSuggestionById')
 
-module.exports = async ({message, userId, problemId}) => {
+module.exports = async (message, problemId, userId) => {
+
     await findUserByID(userId);
     await findProblemByID(problemId);
 
@@ -15,5 +16,7 @@ module.exports = async ({message, userId, problemId}) => {
 
     const newSuggestion = await db.Suggestions.create(suggestion);
 
-    return newSuggestion;
+    const newSuggestionResponse = await findSuggestionById(newSuggestion.id);
+
+    return newSuggestionResponse;
 }

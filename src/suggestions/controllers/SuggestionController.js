@@ -4,15 +4,16 @@ const findSuggestionByIdUC = require('../services/findSuggestionById');
 const createSuggestionUC = require('../services/createSuggestion');
 const deleteSuggestionUC = require('../services/deleteSuggestion');
 const findSuggestionByUserIdUC = require('../services/findSuggestionsByUserId');
-const updateSuggestionUC = require('../services/updateSuggestion')
+const updateSuggestionUC = require('../services/updateSuggestion');
+const SuggestionMapper = require('../mapper/suggestionMapper')
 class SugestionController {
 
     static async getAll(req, res) {
 
         try {
             const allSuggestions = await db.Suggestions.findAll({ include: db.Users });
-            //TO TO: Mapper with user data without password.
-            res.status(200).send(allSuggestions);
+            const suggestionsResponse = SuggestionMapper.multiplusSuggestions(allSuggestions);
+            res.status(200).send(suggestionsResponse);
         } catch (error) {
             errorResponse(error, res);
         }
@@ -26,7 +27,9 @@ class SugestionController {
         try {
             const suggestion = await findSuggestionByIdUC(suggestionId);
 
-            res.status(200).send(suggestion);
+            const suggestionResponse = SuggestionMapper.oneSuggestion(suggestion);
+
+            res.status(200).send(suggestionResponse);
 
         } catch (error) {
             errorResponse(error, res)
@@ -34,12 +37,16 @@ class SugestionController {
     };
 
     static async createSuggestion(req, res) {
-        const body = req.body
+        const {message, problemId}= req.body;
+        const userId = req.user.userId;
 
         try {
-            const newSuggestion = await createSuggestionUC(body);
+            const newSuggestion = await createSuggestionUC(message, problemId, userId);
 
-            res.status(200).send(newSuggestion);
+            const suggestionResponse = SuggestionMapper.oneSuggestion(newSuggestion);
+
+            res.status(200).send(suggestionResponse);
+
         } catch (error) {
             errorResponse(error, res)
         }
