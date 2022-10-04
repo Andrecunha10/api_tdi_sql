@@ -1,10 +1,10 @@
 const db = require('../../../dbConfig/db/models');
 const errorResponse = require('../../error/errorResponse')
-const createNewUser = require('../useCase/createUser');
-const findUserUC = require('../useCase/findUserById');
-const upDateUserUC = require('../useCase/updateUser');
-const deleteUserUC = require('../useCase/deleteUser');
-const loginUC = require('../useCase/login');
+const createNewUser = require('../services/createUser');
+const findUserUC = require('../services/findUserById');
+const upDateUserUC = require('../services/updateUser');
+const deleteUserUC = require('../services/deleteUser');
+const loginUC = require('../services/login');
 
 class UserController {
     static async getAll(req, res) {

@@ -1,5 +1,5 @@
 const db = require('../../../dbConfig/db/models');
-const findUserByEmail = require('../useCase/findUserByEmail');
+const findUserByEmail = require('../services/findUserByEmail');
 const bcrypt = require("bcrypt");
 const {BusinessError} = require('../../error/errorEntity');
 const token = require('../../auth/token')

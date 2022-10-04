@@ -1,4 +1,4 @@
-const db = require('../../../dbConfig//db/models')
+const db = require('../../../dbConfig/db/models')
 const {BusinessError} = require('../../error/errorEntity')
 
 module.exports = async (suggestionId) => {

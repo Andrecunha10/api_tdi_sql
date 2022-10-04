@@ -1,10 +1,10 @@
 const db = require('../../../dbConfig/db/models');
 const errorResponse = require('../../error/errorResponse');
-const findProblemsByIdUC = require('../useCase/findProblemsById');
-const createProblemUC = require('../useCase/createProblem');
-const deleteProblemUC = require('../useCase/deleteProblem');
-const updateProblemUC = require('../useCase/updateProblem');
-const problemAndSuggestionsByProblemIdUC = require('../useCase/ProblemAndSuggestionsByProblemId')
+const findProblemsByIdUC = require('../services/findProblemsById');
+const createProblemUC = require('../services/createProblem');
+const deleteProblemUC = require('../services/deleteProblem');
+const updateProblemUC = require('../services/updateProblem');
+const problemAndSuggestionsByProblemIdUC = require('../services/ProblemAndSuggestionsByProblemId')
 
 class ProblemsController {
 

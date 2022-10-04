@@ -1,10 +1,10 @@
 const db = require('../../../dbConfig/db/models');
 const errorResponse = require('../../error/errorResponse');
-const findSuggestionByIdUC = require('../useCase/findSuggestionById');
-const createSuggestionUC = require('../useCase/createSuggestion');
-const deleteSuggestionUC = require('../useCase/deleteSuggestion');
-const findSuggestionByUserIdUC = require('../useCase/findSuggestionsByUserId');
-const updateSuggestionUC = require('../useCase/updateSuggestion')
+const findSuggestionByIdUC = require('../services/findSuggestionById');
+const createSuggestionUC = require('../services/createSuggestion');
+const deleteSuggestionUC = require('../services/deleteSuggestion');
+const findSuggestionByUserIdUC = require('../services/findSuggestionsByUserId');
+const updateSuggestionUC = require('../services/updateSuggestion')
 class SugestionController {
 
     static async getAll(req, res) {

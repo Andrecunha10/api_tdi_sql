@@ -1,6 +1,6 @@
 const db = require('../../../dbConfig/db/models');
 const { BusinessError } = require('../../error/errorEntity');
-const findUserById = require('../../users/useCase/findUserById');
+const findUserById = require('../../users/services/findUserById');
 
 module.exports = async (userId) => {
     await findUserById(userId);
