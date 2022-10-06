@@ -4,7 +4,8 @@ const findProblemsByIdUC = require('../services/findProblemsById');
 const createProblemUC = require('../services/createProblem');
 const deleteProblemUC = require('../services/deleteProblem');
 const updateProblemUC = require('../services/updateProblem');
-const problemAndSuggestionsByProblemIdUC = require('../services/ProblemAndSuggestionsByProblemId')
+const problemAndSuggestionsByProblemIdUC = require('../services/ProblemAndSuggestionsByProblemId');
+const ProblemMapper = require('../mapper/problemMapper')
 
 class ProblemsController {
 
@@ -68,7 +69,8 @@ class ProblemsController {
 
         try {
             const problem = await problemAndSuggestionsByProblemIdUC(problemId);
-            return res.status(200).send(problem);
+            const response = ProblemMapper.problemAndSuggestion(problem);
+            return res.status(200).send(response);
         } catch (error) {
             errorResponse(error, res);
         }
