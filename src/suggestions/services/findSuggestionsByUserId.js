@@ -8,13 +8,17 @@ module.exports = async (userId) => {
     const userSuggestions = await db.Suggestions.findAll({
         where:{
             userId: userId
-        }
+        },
+        include: [
+            db.Problems,
+            db.Users
+        ]            
     });
 
-    if(!userSuggestions || userSuggestions.length === 0){
-        throw new BusinessError('User has no suggestions!', 202);
+    // if(!userSuggestions || userSuggestions.length === 0){
+    //     throw new BusinessError('User has no suggestions!', 202);
         
-    }
+    // }
 
     return userSuggestions;
 }   

@@ -70,7 +70,8 @@ class SugestionController {
         try {
 
             const userSuggestions = await findSuggestionByUserIdUC(userId);
-            return res.status(200).send(userSuggestions);
+            const suggestionResponse = SuggestionMapper.userSuggestions(userSuggestions);
+            return res.status(200).send(suggestionResponse);
 
         } catch (error) {
 

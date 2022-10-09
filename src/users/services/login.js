@@ -1,5 +1,6 @@
 const findUserByEmailUC = require('../services/findUserByEmail');
 const bcrypt = require('bcrypt');
+const {BusinessError} = require('../../error/errorEntity')
 
 module.exports = async (email, password) => {
     const findUser = await findUserByEmailUC(email);

@@ -17,11 +17,17 @@ class SuggestionMapper {
         })
     }
 
-    static oneSuggestion ({id, message, problemId, User}) {
+    static oneSuggestion ({id, message, Problem, User}) {
         return {
             id,
             message,
-            problemId,
+            problem:{
+                id: Problem.id,
+                name: Problem.name,
+                description: Problem.description,
+                shortDescription: Problem.shortDescription,
+                departament: Problem.departament
+            },
             user: {
                 id: User.id,
                 name: User.name,
@@ -30,6 +36,29 @@ class SuggestionMapper {
                 departament: User.departament
             }
         }
+    }
+
+    static userSuggestions (suggestions) {
+        return suggestions.map( item => {
+            return {
+                id: item.id,
+                message: item.message,
+                problem: {
+                    id: item.Problem.id,
+                    name: item.Problem.name,
+                    departament: item.Problem.departament,
+                    description: item.Problem.description,
+                    shortDescription: item.Problem.shortDescription
+                },
+                user: {
+                    id: item.User.id,
+                    name: item.User.name,
+                    nickname: item.User.nickname,
+                    departament: item.User.departament,
+                    email: item.User.email
+                }
+            }
+        })
     }
 }
 

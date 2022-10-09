@@ -3,7 +3,10 @@ const {BusinessError} = require('../../error/errorEntity')
 
 module.exports = async (suggestionId) => {
     const suggestion = await db.Suggestions.findByPk(suggestionId, {
-        include: db.Users
+        include: [
+            db.Users,
+            db.Problems,
+        ]
     })
 
     if(!suggestion) {
